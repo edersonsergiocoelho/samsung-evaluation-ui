@@ -1,0 +1,55 @@
+<p-fieldset legend="Serch Criterias" [toggleable]="true">
+
+  <p-inputNumber [(ngModel)]="documentNumber" placeholder="Document Number" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"></p-inputNumber>
+
+  <p-dropdown [options]="currency" [(ngModel)]="selectedCurrency" optionLabel="currencyDesc"></p-dropdown>
+
+  <div class="field col-12 md:col-4">
+    <label for="icon">Document Date</label>
+    <p-calendar [(ngModel)]="documentDateRange" selectionMode="range" [readonlyInput]="true" inputId="range" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+  </div>
+
+  <br><br><br>
+
+  <div>
+
+    <p-button label="Search" icon="pi pi-search" (onClick)="oncClickSearch()"></p-button>
+    <p-button label="Clean" icon="pi pi-circle" styleClass="p-button-success" (onClick)="oncClickClean()"></p-button>
+
+  </div>
+
+</p-fieldset>
+
+<div class="card">
+  <p-table responsiveLayout="stack" [value]="docs">
+      <ng-template pTemplate="caption">
+          Docs
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th>Document Number</th>
+              <th>Document Date</th>
+              <th>Currency Code</th>
+              <th>Currency Desc</th>
+              <th>Document Value</th>
+              <th>Value USD</th>
+              <th>Value PEN</th>
+              <th>Value BRL</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-doc let-columns="columns">
+          <tr>
+              <td><span class="p-column-title">Document Number</span>{{doc.documentNumber}}</td>
+              <td><span class="p-column-title">Document Date</span>{{doc.documentDateFormat}}</td>
+              <td><span class="p-column-title">Currency Code</span>{{doc.currencyCode}}</td>
+              <td><span class="p-column-title">Currency Desc</span>{{doc.currencyDesc}}</td>
+              <td><span class="p-column-title">Document Value</span>{{doc.documentValue}}</td>
+              <td><span class="p-column-title">Value USD</span>{{doc.valueUSD | currency: 'USD'}}</td>
+              <td><span class="p-column-title">Value PEN</span>{{doc.valuePEN | currency: 'PEN'}}</td>
+              <td><span class="p-column-title">Value BRL</span>{{doc.valueBRL | currency: 'BRL'}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-right"></p-toast>
